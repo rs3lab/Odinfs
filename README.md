@@ -52,10 +52,18 @@ $ ./dep.sh
 ### 2. Install the 5.13.13 Linux kernel
 ```
 $ cd linux
+$ cp config-odinfs .config
 $ make oldconfig        (update the config with the provided .config file)
 ```
 
-Please use your favorite way to compile and install the kernel. The below step is just for reference. 
+Say N to KASAN if the config program prompts to ask about it. 
+
+```
+KASAN: runtime memory debugger (KASAN) [N/y/?] (NEW) N
+```
+
+
+Next, please use your favorite way to compile and install the kernel. The below step is just for reference. 
 
 For Ubuntu:
 ```
