@@ -3,6 +3,10 @@
 sudo -v 
 fs=(pmfs nova winefs odinfs)
 
+#Work around, will fix
+sudo modprobe nova
+sudo rmmod nova
+
 for i in ${fs[@]}
 do
     cd $i
