@@ -179,6 +179,22 @@ The table below shows the execution time of each script on a two-socket, 56 core
 **1. Hardware setup**: 
 * Please disable hyperthreading in the BIOS to avoid issues due to CPU pinning before running experiments. 
 * Please enable the directory coherence protocol for PM to check the PM NUMA impact. This should be the default setup. 
+* Configure each PM device to ```fsdax``` mode. For example, on a two socket machine:
+```
+sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
+```
+
+On a four socket machine:
+```
+sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace1.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace2.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace3.0 --mode=fsdax
+```
+
+**Warning: all the data on the PM file will be lost**
+
 
 **2. Testing runs**
 
