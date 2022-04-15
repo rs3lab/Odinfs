@@ -49,7 +49,7 @@ Our artifact should run on any Linux distribution. The current scripts are devel
 $ ./dep.sh 
 ```
 
-### 2. Install the 5.13.13 Linux kernel
+### 2. Install the 5.13.13 Linux kernel (50GB space and 20 minutes)
 ```
 $ cd linux
 $ cp config-odinfs .config
@@ -63,7 +63,7 @@ KASAN: runtime memory debugger (KASAN) [N/y/?] (NEW) N
 ```
 
 
-Next, please use your favorite way to compile and install the kernel. The below step is just for reference. 
+Next, please use your favorite way to compile and install the kernel. The below step is just for reference. The installation requires 50GB space and takes around 20 minutes on our machines. 
 
 For Ubuntu:
 ```
