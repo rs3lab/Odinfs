@@ -49,25 +49,33 @@ Our artifact should run on any Linux distribution. The current scripts are devel
 $ ./dep.sh 
 ```
 
-### 2. Install the 5.13.13 Linux kernel
+### 2. Install the 5.13.13 Linux kernel (50GB space and 20 minutes)
 ```
 $ cd linux
+$ cp config-odinfs .config
 $ make oldconfig        (update the config with the provided .config file)
 ```
 
-Please use your favorite way to compile and install the kernel. The below step is just for reference. 
+Say N to KASAN if the config program prompts to ask about it. 
+
+```
+KASAN: runtime memory debugger (KASAN) [N/y/?] (NEW) N
+```
+
+
+Next, please use your favorite way to compile and install the kernel. The below step is just for reference. The installation requires 50GB space and takes around 20 minutes on our machines. 
 
 For Ubuntu:
 ```
-$ make -j deb-pkg       (generate the kernel installment package)
+$ make -j8 deb-pkg       (generate the kernel installment package)
 $ sudo dpkg -i *.deb    (install the package) 
 ```
 
 Otherwise, the classical ways will work as well:
 
 ```
-$ make -j              
-$ make -j modules 
+$ make -j8              
+$ make -j8 modules 
 $ sudo make install
 $ sudo make modules_install
 ```
@@ -171,6 +179,22 @@ The table below shows the execution time of each script on a two-socket, 56 core
 **1. Hardware setup**: 
 * Please disable hyperthreading in the BIOS to avoid issues due to CPU pinning before running experiments. 
 * Please enable the directory coherence protocol for PM to check the PM NUMA impact. This should be the default setup. 
+* Configure each PM device to ```fsdax``` mode. For example, on a two socket machine:
+```
+sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
+```
+
+On a four socket machine:
+```
+sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace1.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace2.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace3.0 --mode=fsdax
+```
+
+**Warning: all the data on the PM file will be lost**
+
 
 **2. Testing runs**
 
@@ -231,7 +255,6 @@ $ ./parse.sh
 $ cd eval/fig
 $ ./fig.sh
 ```
-
 # Authors
 
 * Diyu Zhou (EPFL)
