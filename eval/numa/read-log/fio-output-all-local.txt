@@ -1,0 +1,30 @@
+seq-write-2m: (g=0): rw=read, bs=(R) 2048KiB-2048KiB, (W) 2048KiB-2048KiB, (T) 2048KiB-2048KiB, ioengine=psync, iodepth=1
+...
+fio-3.16
+Starting 28 processes
+
+seq-write-2m: (groupid=0, jobs=28): err= 0: pid=554471: Fri Apr 15 07:39:13 2022
+  read: IOPS=8842, BW=17.3GiB/s (18.5GB/s)(518GiB/30002msec)
+    clat (usec): min=1935, max=19223, avg=3164.52, stdev=114.11
+     lat (usec): min=1935, max=19223, avg=3164.74, stdev=114.12
+    clat percentiles (usec):
+     |  1.00th=[ 2999],  5.00th=[ 3064], 10.00th=[ 3064], 20.00th=[ 3097],
+     | 30.00th=[ 3130], 40.00th=[ 3130], 50.00th=[ 3163], 60.00th=[ 3163],
+     | 70.00th=[ 3195], 80.00th=[ 3228], 90.00th=[ 3261], 95.00th=[ 3294],
+     | 99.00th=[ 3458], 99.50th=[ 3490], 99.90th=[ 3589], 99.95th=[ 3621],
+     | 99.99th=[ 4555]
+   bw (  MiB/s): min=17380, max=17802, per=99.98%, avg=17681.45, stdev= 5.06, samples=1673
+   iops        : min= 8687, max= 8901, avg=8839.78, stdev= 2.54, samples=1673
+  lat (msec)   : 2=0.01%, 4=99.97%, 10=0.02%, 20=0.01%
+  cpu          : usr=0.08%, sys=99.89%, ctx=2316, majf=0, minf=14507
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=265294,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=17.3GiB/s (18.5GB/s), 17.3GiB/s-17.3GiB/s (18.5GB/s-18.5GB/s), io=518GiB (556GB), run=30002-30002msec
+
+Disk stats (read/write):
+  pmem0: ios=0/0, merge=0/0, ticks=0/0, in_queue=0, util=0.00%
