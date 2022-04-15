@@ -67,15 +67,15 @@ Next, please use your favorite way to compile and install the kernel. The below 
 
 For Ubuntu:
 ```
-$ make -j deb-pkg       (generate the kernel installment package)
+$ make -j8 deb-pkg       (generate the kernel installment package)
 $ sudo dpkg -i *.deb    (install the package) 
 ```
 
 Otherwise, the classical ways will work as well:
 
 ```
-$ make -j              
-$ make -j modules 
+$ make -j8              
+$ make -j8 modules 
 $ sudo make install
 $ sudo make modules_install
 ```
