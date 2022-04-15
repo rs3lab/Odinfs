@@ -5,7 +5,7 @@ source common.sh
 DATA_PATH=../data/
 
 echo "Parsing fio results"
-for i in `ls $FXMARK_LOG_PATH/fio/`
+for i in `ls $FXMARK_LOG_PATH/test-fio/`
 do
     echo "On $i"
     $FXMARK_PARSER_PATH/pdata.py --log="$FXMARK_LOG_PATH/test-fio/$i" \
@@ -20,7 +20,7 @@ done
 echo ""
 
 echo "Parsing fxmark results"
-for i in `ls $FXMARK_LOG_PATH/fxmark/`
+for i in `ls $FXMARK_LOG_PATH/test-fxmark/`
 do
     echo "On $i"
     $FXMARK_PARSER_PATH/pdata.py --log="$FXMARK_LOG_PATH/test-fxmark/$i" \
@@ -36,7 +36,7 @@ done
 echo ""
 
 echo "Parsing filebench results"
-for i in `ls $FXMARK_LOG_PATH/filebench/`
+for i in `ls $FXMARK_LOG_PATH/test-filebench/`
 do
     echo "On $i"
     $FXMARK_PARSER_PATH/pdata.py --log="$FXMARK_LOG_PATH/test-filebench/$i" \
