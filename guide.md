@@ -219,7 +219,7 @@ $ cd eval/fig
 $ ./fig.sh
 ```
 
-Please check all the ```*.eps``` files numbered according to the figures in the paper.  We don't include legends in these figures since we have not figured out how to do it nicely with gnuplot :stuck_out_tongue_winking_eye:. The legends are the same as the corresponding figures in the paper. :stuck_out_tongue_closed_eyes:
+Please check all the ```*.eps``` files numbered according to the figures in the paper.  We don't include legends in these figures since we have not figured out how to do it nicely with gnuplot. The legends are the same as the corresponding figures in the paper. 
 
 # Validation of the main claims:
 
@@ -232,6 +232,7 @@ Please refer to [here](main-claim.md)
 2. Intel pmwatch does not work on [the newer version of PM](https://community.intel.com/t5/Intel-Optane-Persistent-Memory/How-to-use-quot-ipmwatch-quot-with-PMEM200-and-3rd-Gen-Xeon/td-p/1367959). Our I/O amplification scripts is based on pmwatch. If it does not work, there is no point to run ```ampl.sh```
 
 3. For I/O intensive applications, the performance of PM file systems heavily depends on the ways to perform memcpy. If the experiments show Odinfs achieves poor write performance, please do the followings:
+
 * Enable non-temporal stores:  
 
   Change line 70 of ```fs/odinfs/pmfs_config.h``` to ```#define PMFS_NT_STORE 1 ```
