@@ -193,7 +193,7 @@ sudo ndctl create-namespace -f -e namespace2.0 --mode=fsdax
 sudo ndctl create-namespace -f -e namespace3.0 --mode=fsdax
 ```
 
-**Warning: all the data on the PM file will be lost**
+**Warning: all the data on the PM devices will be lost**
 
 
 **2. Testing runs**
