@@ -1,8 +1,8 @@
 
 Welcome! This website contains the artifact for reproducing our OSDI ‘22 paper “Odinfs: Scaling PM Performance with Opportunistic Delegation”.
 
-Odinfs is a NUMA-aware PM file system based on an opportunistic delegation framework to acheive datapath scalability. 
-Odinfs’s design features: 
+Odinfs is a NUMA-aware PM file system based on an opportunistic delegation
+framework to achieve datapath scalability. Odinfs’s design features:
 
 * Limiting concurrent PM access to avoid performance meltdown due to on-DIMM cache trashing. 
 * Localizing PM access to avoid performance meltdown due to remote PM access. 
@@ -12,6 +12,7 @@ Odinfs’s design features:
 
 
 ### More
+[Repository](https://github.com/rs3lab/Odinfs)
 [Artifact evaluation guide](guide.md)
 
 
