@@ -53,7 +53,7 @@ $ ./dep.sh
 ```
 $ cd linux
 $ cp config-odinfs .config
-$ make oldconfig        (update the config with the provided .config file)
+$ make oldconfig             (update the config with the provided .config file)
 ```
 
 Say N to KASAN if the config program prompts to ask about it. 
@@ -67,8 +67,8 @@ Next, please use your favorite way to compile and install the kernel. The below 
 
 For Ubuntu:
 ```
-$ make -j8 deb-pkg       (generate the kernel installment package)
-$ sudo dpkg -i *.deb    (install the package) 
+$ make -j8 deb-pkg           (generate the kernel installment package)
+$ sudo dpkg -i *.deb         (install the package) 
 ```
 
 Otherwise, the classical ways will work as well:
