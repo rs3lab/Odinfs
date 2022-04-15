@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Artifact Evaluation Submission for Odinfs [OSDI ‘22] | Odinfs: Scaling PM Performance with Opportunistic Delegation</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Artifact Evaluation Submission for Odinfs [OSDI ‘22]" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/guide.html" />
+<meta property="og:url" content="http://localhost:4000/guide.html" />
+<meta property="og:site_name" content="Odinfs: Scaling PM Performance with Opportunistic Delegation" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Artifact Evaluation Submission for Odinfs [OSDI ‘22]" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Artifact Evaluation Submission for Odinfs [OSDI ‘22]","url":"http://localhost:4000/guide.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=d05c28c7bc5578e3bd1dc4eb8b69d87703793504">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Artifact Evaluation Submission for Odinfs [OSDI ‘22]</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="https://github.com/vmexit/odinfs-ae" class="btn">View on GitHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="artifact-evaluation-submission-for-odinfs-osdi-22">Artifact Evaluation Submission for Odinfs [OSDI ‘22]</h1>
+
+<p>This repository contains the artifact for reproducing our OSDI ‘22 paper “Odinfs: Scaling PM Performance with Opportunistic Delegation”.</p>
+
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+  <li><a href="#overview">Overview</a></li>
+  <li><a href="#setup">Setup</a></li>
+  <li><a href="#running-experiments">Running experiments</a></li>
+  <li><a href="#validation-of-the-main-claims">Validation of the main claims</a></li>
+  <li><a href="#known-issues">Known Issues</a></li>
+  <li><a href="#authors">Authors</a></li>
+</ul>
+
+<h1 id="overview">Overview</h1>
+
+<h3 id="structure">Structure:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root
+|---- fs                 (source code of the evaluated file systems)
+    |---- odinfs         (odinfs kernel module) 
+    |---- parradm        (odinfs user-level utility)
+    |---- nova         
+    |---- pmfs 
+    |---- winefs
+|---- linux              (5.13.13 Linux kernel)
+|---- eval               (evaluation)
+    |---- ampl           (I/O amplification) 
+    |---- benchmark      (Filebench and Fxmark) 
+    |---- numa           (NUMA impact)
+    |---- scripts        (the main evaluation scripts) 
+    |---- fig            (figures) 
+    |---- data           (raw data)
+|---- tools            
+    |---- intel-pmwatch  (used to measure the I/O amplification)
+    |---- pcm            (used to measure the NUMA impact)
+|---- dep.sh             (scripts to install dependency)    
+</code></pre></div></div>
+
+<h3 id="environment">Environment:</h3>
+
+<p>Our artifact should run on any Linux distribution. The current scripts are developed for <strong>Ubuntu 20.04.4 LTS</strong>. Porting to other Linux distributions would require some scripts modifications , especially <code class="language-plaintext highlighter-rouge">dep.sh</code>, which installs dependencies with package management tools.</p>
+
+<h1 id="setup">Setup</h1>
+
+<p><strong>Note</strong>: For the below steps, our scripts will complain if it fails to compile or install the target. Check the end part of the scripts’ output to ensure that the install is successful. Also, some scripts would prompt to ask the sudo permission at the beginning.</p>
+
+<h3 id="1-install-the-dependencies">1. Install the dependencies:</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./dep.sh 
+</code></pre></div></div>
+
+<h3 id="2-install-the-51313-linux-kernel">2. Install the 5.13.13 Linux kernel</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd linux
+$ make oldconfig        (update the config with the provided .config file)
+</code></pre></div></div>
+
+<p>Please use your favorite way to compile and install the kernel. The below step is just for reference.</p>
+
+<p>For Ubuntu:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ make -j deb-pkg       (generate the kernel installment package)
+$ sudo dpkg -i *.deb    (install the package) 
+</code></pre></div></div>
+
+<p>Otherwise, the classical ways will work as well:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ make -j              
+$ make -j modules 
+$ sudo make install
+$ sudo make modules_install
+</code></pre></div></div>
+<p>Reboot the machine to the installed 5.13.13 kernel.</p>
+
+<h3 id="3-install-and-insmod-file-systems">3. Install and insmod file systems</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd fs
+$ ./compile.sh
+</code></pre></div></div>
+<p>The script will compile, install, and insert the following kernel modules:</p>
+
+<ul>
+  <li>Odinfs</li>
+  <li>PMFS</li>
+  <li>NOVA</li>
+  <li>Winefs</li>
+</ul>
+
+<h3 id="4-compile-and-install-benchmarks">4. Compile and install benchmarks</h3>
+
+<p><strong>4.1 Fxmark</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd eval/benchmark/fxmark
+$ ./compile.sh
+</code></pre></div></div>
+
+<p><strong>4.2 Filebench</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd eval/benchmark/fxmark
+$ ./compile.sh
+</code></pre></div></div>
+
+<h3 id="5-compile-and-install-tools">5. Compile and install tools</h3>
+
+<p><strong>5.1 Intel-pmwatch</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd tools/intel-pmwatch
+$ ./compile.sh
+</code></pre></div></div>
+
+<p><strong>5.2 PCM</strong></p>
+
+<p>For Ubuntu:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd tools/pcm
+$ sudo dpkg -i pcm_amd64.deb
+</code></pre></div></div>
+
+<p>Otherwise, please check <code class="language-plaintext highlighter-rouge">tools/pcm/README.md</code></p>
+
+<h1 id="running-experiments">Running Experiments:</h1>
+
+<p>Main scripts are under <code class="language-plaintext highlighter-rouge">eval/scripts/</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eval/scripts
+|---- fio.sh                    (FIO-related experiments; fig1, fig2, fig6, fig7)
+|---- fxmark.sh                 (Fxmark-related experiments; fig11)
+|---- filebench.sh              (Filebench-related experiments; fig12)
+|---- fio-odinfs-vd.sh          (Odinfs with varying number of delegation threads; fig1, fig9)   
+|---- fio-odinfs-vn.sh          (Odinfs with varying number of NUMA nodes; fig10) 
+|---- ampl.sh                   (I/O amplifcation rate of each file system; fig2, fig8)
+|---- numa.sh                   (PM NUMA impact; fig3)
+|---- run-all.sh                (running all the above scripts)
+|---- run-test.sh               (quick run of fio, fxmark, and filbench with the evaluated file systems)
+|---- odinfs.sh                 (rerun all the experiments related to odinfs)
+|---- parse.sh                  (parse and output the results to directory: eval/data)
+</code></pre></div></div>
+
+<p><strong>Exeuction time</strong></p>
+
+<p>The table below shows the execution time of each script on a two-socket, 56 core machine. Machines with more sockets take longer.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Scripts</th>
+      <th style="text-align: center">Execution Time in Minutes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">fio.sh</td>
+      <td style="text-align: center">270</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">fxmark.sh</td>
+      <td style="text-align: center">138</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">filebench.sh</td>
+      <td style="text-align: center">164</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">fio-odinfs-vd.sh</td>
+      <td style="text-align: center">179</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">fio-odinfs-vn.sh</td>
+      <td style="text-align: center">45</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">ampl.sh</td>
+      <td style="text-align: center">200</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">numa.sh</td>
+      <td style="text-align: center">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">run-all.sh</td>
+      <td style="text-align: center">1002</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">run-test.sh</td>
+      <td style="text-align: center">65</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">odinfs.sh</td>
+      <td style="text-align: center">92</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">parse.sh</td>
+      <td style="text-align: center">&lt;1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Note</strong>:</p>
+<ul>
+  <li>We recommend running <code class="language-plaintext highlighter-rouge">run-test.sh</code> first to ensure that everything seems correct</li>
+  <li>And then perform a full run with <code class="language-plaintext highlighter-rouge">run-all.sh</code> to get all the data.</li>
+  <li>Feel free to customize <code class="language-plaintext highlighter-rouge">run-all.sh</code> to skip some experiments.</li>
+</ul>
+
+<p><strong>1. Hardware setup</strong>:</p>
+<ul>
+  <li>Please disable hyperthreading in the BIOS to avoid issues due to CPU pinning before running experiments.</li>
+  <li>Please enable the directory coherence protocol for PM to check the PM NUMA impact. This should be the default setup.</li>
+</ul>
+
+<p><strong>2. Testing runs</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd eval/scripts
+$ ./run-test.sh
+</code></pre></div></div>
+
+<p><strong>3. Full runs</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd eval/scripts
+$ ./run-all.sh
+</code></pre></div></div>
+
+<p><strong>4. Generate figures</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd eval/scripts
+$ ./parse.sh
+$ cd eval/fig
+$ ./fig.sh
+</code></pre></div></div>
+
+<p>Please check all the <code class="language-plaintext highlighter-rouge">*.eps</code> files numbered according to the figures in the paper.  We don’t include legends in these figures since we have not figured out how to do it nicely with gnuplot :stuck_out_tongue_winking_eye:. The legends are the same as the corresponding figures in the paper. :stuck_out_tongue_closed_eyes:</p>
+
+<h1 id="validation-of-the-main-claims">Validation of the main claims:</h1>
+
+<p>Please refer to <a href="/main-claim.html">here</a></p>
+
+<h1 id="known-issues">Known issues</h1>
+
+<ol>
+  <li>
+    <p>The kernel might complain about CPU soft lockup during some experiments. This can be safely ignored.</p>
+  </li>
+  <li>
+    <p>Intel pmwatch does not work on <a href="https://community.intel.com/t5/Intel-Optane-Persistent-Memory/How-to-use-quot-ipmwatch-quot-with-PMEM200-and-3rd-Gen-Xeon/td-p/1367959">the newer version of PM</a>. Our I/O amplification scripts is based on pmwatch. If it does not work, there is no point to run <code class="language-plaintext highlighter-rouge">ampl.sh</code></p>
+  </li>
+  <li>
+    <p>For I/O intensive applications, the performance of PM file systems heavily depends on the ways to perform memcpy. If the experiments show Odinfs achieves poor write performance, please do the followings:</p>
+    <ul>
+      <li>Enable non-temporal stores:</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Change line 70 of <code class="language-plaintext highlighter-rouge">fs/odinfs/pmfs_config.h</code> to <code class="language-plaintext highlighter-rouge">#define PMFS_NT_STORE 1</code></p>
+
+<ul>
+  <li>Recompile and reinsert odifns:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd fs
+$ ./compile.sh
+</code></pre></div>    </div>
+  </li>
+  <li>Rerun all the odinfs-related experiments:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd eval/scripts
+$ ./odinfs.sh
+</code></pre></div>    </div>
+  </li>
+  <li>Regenerate the figure:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd eval/scripts
+$ ./parse.sh
+$ cd eval/fig
+$ ./fig.sh
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="authors">Authors</h1>
+
+<ul>
+  <li>
+    <p>Diyu Zhou (EPFL)</p>
+  </li>
+  <li>
+    <p>Yuchen Qian (EPFL)</p>
+  </li>
+  <li>
+    <p>Vishal Gupta (EPFL)</p>
+  </li>
+  <li>
+    <p>Zhifei Yang (EPFL)</p>
+  </li>
+  <li>
+    <p>Changwoo Min (Virginia Tech)</p>
+  </li>
+  <li>
+    <p>Sanidhya Kashyap (EPFL)</p>
+  </li>
+</ul>
+
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/vmexit/odinfs-ae">odinfs-ae</a> is maintained by <a href="https://github.com/vmexit">vmexit</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>
