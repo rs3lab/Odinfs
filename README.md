@@ -1,6 +1,6 @@
 # Artifact Evaluation Submission for Odinfs [OSDI '22] 
 
-This repository contains the artifact for reproducing our OSDI '22 paper "Odinfs: Scaling PM Performance with Opportunistic Delegation". A website of this repository is at [here](https://rs3lab.github.io/Odinfs/)
+This repository contains the artifact for reproducing our OSDI '22 paper "Odinfs: Scaling PM Performance with Opportunistic Delegation". A website of this repository is at [here](https://rs3lab.github.io/Odinfs/). 
 
 # Table of Contents
 * [Overview](#overview)
@@ -193,7 +193,7 @@ sudo ndctl create-namespace -f -e namespace2.0 --mode=fsdax
 sudo ndctl create-namespace -f -e namespace3.0 --mode=fsdax
 ```
 
-**Warning: all the data on the PM file will be lost**
+**Warning: all the data on the PM devices will be lost**
 
 
 **2. Testing runs**
