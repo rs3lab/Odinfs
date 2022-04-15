@@ -1,6 +1,6 @@
-# Artifact Evaluation Submission for Odinfs [OSDI '22] 
+# Artifact Guide for Odinfs [OSDI '22] 
 
-This repository contains the artifact for reproducing our OSDI '22 paper "Odinfs: Scaling PM Performance with Opportunistic Delegation". 
+This page contains the guide for using the artifact from our OSDI '22 paper "Odinfs: Scaling PM Performance with Opportunistic Delegation". 
 
 # Table of Contents
 * [Overview](#overview)
