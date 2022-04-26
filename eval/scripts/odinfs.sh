@@ -20,13 +20,13 @@ $FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='odinfs' \
     --rcore='False' --delegate='True' --confirm='True' \
     --directory_name="fio" --log_name="odinfs-write.log" --duration=30
 
-$FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='^odinfs$' \
+$FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='odinfs' \
     --workload='^DRBL$|^DRBM$|^DRBH$' \
     --ncore='*' --iotype='bufferedio' --dthread='12' --dsocket='2' \
     --rcore='False' --delegate='False' --confirm='True' \
     --directory_name="fxmark" --log_name="odinfs-read.log" --duration=30
 
-$FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='^odinfs$' \
+$FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='odinfs' \
     --workload='^DWOL$|^DWOM$|^DWAL$' \
     --ncore='*' --iotype='bufferedio' --dthread='12' --dsocket='2' \
     --rcore='False' --delegate='True' --confirm='True' \

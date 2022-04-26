@@ -65,13 +65,13 @@ $FXMARK_BIN_PATH/run-fxmark.py --media='^dm-stripe$' --fs='^ext4$' \
     --rcore='False' --delegate='False' --confirm='True' \
     --directory_name="test-fxmark" --log_name="ext-raid0.log" --duration=30
 
-$FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='^odinfs$' \
+$FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='odinfs' \
     --workload='^DRBL$|^DRBM$|^DRBH$' \
     --ncore='^56$' --iotype='bufferedio' --dthread='12' --dsocket='2' \
     --rcore='False' --delegate='False' --confirm='True' \
     --directory_name="test-fxmark" --log_name="odinfs-read.log" --duration=30
 
-$FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='^odinfs$' \
+$FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='odinfs' \
     --workload='^DWOL$|^DWOM$|^DWAL$' \
     --ncore='^56$' --iotype='bufferedio' --dthread='12' --dsocket='2' \
     --rcore='False' --delegate='True' --confirm='True' \
