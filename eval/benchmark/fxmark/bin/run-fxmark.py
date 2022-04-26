@@ -978,6 +978,11 @@ if __name__ == "__main__":
             parser.print_help()
             exit(1)
 
+    if cpupol.SMT_LEVEL != 1:
+        print("Please disable hyperthreading in the BIOS")
+        exit(1)
+
+
     # config parameters
     # -----------------
     #
