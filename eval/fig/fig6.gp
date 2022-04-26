@@ -18,22 +18,20 @@ unset xlabel
 unset key
 set ylabel 'Throughput (GiB/s)'
 set title '(a) 4K read'
-#set xtics rotate ('1' 0, '2' 1 ,'4' 2, '8' 3, '16' 4, '28' 5, '56' 6, '84' 7, '112' 8, '140' 9, '168' 10, '196' 11, '224' 12)
-set xtics rotate ('1' 0, '2' 1 ,'4' 2, '8' 3, '16' 4, '28' 5, '56' 6)
 
 plot \
 "../data/fio/pmem-local:ext4:seq-read-4K:bufferedio.dat" \
- using 0:($2/1024/1024) title '\ext' with lp ls ext, \
+ using 1:($2/1024/1024) title '\ext' with lp ls ext, \
 "../data/fio/pmem-local:pmfs:seq-read-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\pmfs' with lp ls pmfs, \
+ using 1:($2/1024/1024)  title '\pmfs' with lp ls pmfs, \
 "../data/fio/pmem-local:nova:seq-read-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\nova' with lp ls nova, \
+ using 1:($2/1024/1024)  title '\nova' with lp ls nova, \
 "../data/fio/pmem-local:winefs:seq-read-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\winefs' with lp ls winefs, \
+ using 1:($2/1024/1024)  title '\winefs' with lp ls winefs, \
 "../data/fio/dm-stripe:ext4:seq-read-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\extr' with lp ls extr, \
+ using 1:($2/1024/1024)  title '\extr' with lp ls extr, \
 "../data/fio/pm-array:odinfs:seq-read-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\sys' with lp ls odinfs 
+ using 1:($2/1024/1024)  title '\sys' with lp ls odinfs 
 
 # 4k-write
 eval mpNext
@@ -45,17 +43,17 @@ set title '(b) 4K write'
 
 plot \
 "../data/fio/pmem-local:ext4:seq-write-4K:bufferedio.dat" \
- using 0:($2/1024/1024) title '\ext' with lp ls ext, \
+ using 1:($2/1024/1024) title '\ext' with lp ls ext, \
 "../data/fio/pmem-local:pmfs:seq-write-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\pmfs' with lp ls pmfs, \
+ using 1:($2/1024/1024)  title '\pmfs' with lp ls pmfs, \
 "../data/fio/pmem-local:nova:seq-write-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\nova' with lp ls nova, \
+ using 1:($2/1024/1024)  title '\nova' with lp ls nova, \
 "../data/fio/pmem-local:winefs:seq-write-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\winefs' with lp ls winefs, \
+ using 1:($2/1024/1024)  title '\winefs' with lp ls winefs, \
 "../data/fio/dm-stripe:ext4:seq-write-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\extr' with lp ls extr, \
+ using 1:($2/1024/1024)  title '\extr' with lp ls extr, \
 "../data/fio/pm-array:odinfs:seq-write-4K:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\sys' with lp ls odinfs 
+ using 1:($2/1024/1024)  title '\sys' with lp ls odinfs 
 
 
 # 2m-read
@@ -67,17 +65,17 @@ set title '(c) 2M read'
 
 plot \
 "../data/fio/pmem-local:ext4:seq-read-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\ext' with lp ls ext, \
+ using 1:($2/1024/1024) title '\ext' with lp ls ext, \
 "../data/fio/pmem-local:pmfs:seq-read-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\pmfs' with lp ls pmfs, \
+ using 1:($2/1024/1024) title '\pmfs' with lp ls pmfs, \
 "../data/fio/pmem-local:nova:seq-read-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\nova' with lp ls nova, \
+ using 1:($2/1024/1024) title '\nova' with lp ls nova, \
 "../data/fio/pmem-local:winefs:seq-read-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\winefs' with lp ls winefs, \
+ using 1:($2/1024/1024) title '\winefs' with lp ls winefs, \
 "../data/fio/dm-stripe:ext4:seq-read-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\extr' with lp ls extr, \
+ using 1:($2/1024/1024) title '\extr' with lp ls extr, \
 "../data/fio/pm-array:odinfs:seq-read-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\sys' with lp ls odinfs 
+ using 1:($2/1024/1024) title '\sys' with lp ls odinfs 
 
 # 2m-write
 eval mpNext
@@ -88,17 +86,17 @@ set title '(d) 2M write'
 
 plot \
 "../data/fio/pmem-local:ext4:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\ext' with lp ls ext, \
+ using 1:($2/1024/1024) title '\ext' with lp ls ext, \
 "../data/fio/pmem-local:pmfs:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\pmfs' with lp ls pmfs, \
+ using 1:($2/1024/1024)  title '\pmfs' with lp ls pmfs, \
 "../data/fio/pmem-local:nova:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\nova' with lp ls nova, \
+ using 1:($2/1024/1024) title '\nova' with lp ls nova, \
 "../data/fio/pmem-local:winefs:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\winefs' with lp ls winefs, \
+ using 1:($2/1024/1024) title '\winefs' with lp ls winefs, \
 "../data/fio/dm-stripe:ext4:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\extr' with lp ls extr, \
+ using 1:($2/1024/1024) title '\extr' with lp ls extr, \
 "../data/fio/pm-array:odinfs:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\sys' with lp ls odinfs 
+ using 1:($2/1024/1024) title '\sys' with lp ls odinfs 
 
 
 unset multiplot
