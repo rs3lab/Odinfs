@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Please disable hyperthreading in BIOS before running any workload
+
+# Please replace the --ncore="^56$" with the number of cores in the 
+# experimental machine. For example, for a two-socket machine, where each 
+# socket has 18 cores, replace --ncore="^56$" with --ncore="^36$"
+
 source common.sh
 
 $FXMARK_BIN_PATH/run-fxmark.py --media='pmem-local' \
