@@ -859,8 +859,11 @@ struct pmfs_inode *pmfs_get_inode(struct super_block *sb, u64 ino)
 
 			*(u64 *)(curr_addr) = curr;
 
-			pmfs_flush_buffer((void *)curr_addr,
-					  PMFS_INODE_SIZE, 1);
+			/*
+			 * curr_addr is a pointer to curr with a size of 8 bytes.
+			 * It does not make sense to flush PMFS_INODE_SIZE here
+			 */
+			pmfs_flush_buffer((void *)curr_addr, 8, 1);
 		}
 	}
 
