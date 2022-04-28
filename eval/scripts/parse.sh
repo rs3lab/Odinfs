@@ -2,7 +2,6 @@
 
 source common.sh
 
-DATA_PATH=../data/
 
 echo "Parsing fio results"
 for i in `ls $FXMARK_LOG_PATH/fio/`

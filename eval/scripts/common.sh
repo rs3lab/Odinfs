@@ -6,4 +6,6 @@ FXMARK_BIN_PATH="../benchmark/fxmark/bin/"
 
 MAX_CPUS=`cat /proc/cpuinfo | grep processor | wc -l`
 
+DATA_PATH=../data/
+
 sudo -v 

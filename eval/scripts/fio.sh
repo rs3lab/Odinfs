@@ -45,3 +45,12 @@ $FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='odinfs' \
     --ncore='*' --iotype='bufferedio' --dthread='12' --dsocket='2' \
     --rcore='False' --delegate='True' --confirm='True' \
     --directory_name="fio" --log_name="odinfs-write.log" --duration=30
+
+echo "Parsing fio results"
+for i in `ls $FXMARK_LOG_PATH/fio/`
+do
+    echo "On $i"
+    $FXMARK_PARSER_PATH/pdata.py --log="$FXMARK_LOG_PATH/fio/$i" \
+    --type='fio' --out="$DATA_PATH/fio"
+done
+echo ""

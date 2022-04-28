@@ -23,3 +23,13 @@ do
     --directory_name="fio-vd" --log_name="odinfs-write-$i.log" --duration=30
 
 done
+
+echo "Parsing fio results for odinfs with varying delegation threads"
+for i in `ls $FXMARK_LOG_PATH/fio-vd/`
+do
+    echo "On $i"
+    threads=`echo $i | cut -d '-' -f 3 | tr -dc '0-9'`
+    $FXMARK_PARSER_PATH/pdata.py --log="$FXMARK_LOG_PATH/fio-vd/$i" \
+    --type='fio' --out="$DATA_PATH/odinfs-$threads-threads"
+done
+echo ""

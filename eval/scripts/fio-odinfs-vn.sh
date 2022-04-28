@@ -22,3 +22,13 @@ do
     --rcore='False' --delegate='True' --confirm='True' \
     --directory_name="fio-vn" --log_name="odinfs-write-$i.log" --duration=30
 done
+
+echo "Parsing fio results for odinfs with varying NUMA nodes"
+for i in `ls $FXMARK_LOG_PATH/fio-vn/`
+do
+    echo "On $i"
+    sockets=`echo $i | cut -d '-' -f 3 | tr -dc '0-9'`
+    $FXMARK_PARSER_PATH/pdata.py --log="$FXMARK_LOG_PATH/fio-vn/$i" \
+    --type='fio' --out="$DATA_PATH/odinfs-$sockets-sockets"
+done
+echo ""

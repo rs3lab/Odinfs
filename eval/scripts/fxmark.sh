@@ -28,4 +28,11 @@ $FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='odinfs' \
     --directory_name="fxmark" --log_name="odinfs-write.log" --duration=30
 
 
-
+echo "Parsing fxmark results"
+for i in `ls $FXMARK_LOG_PATH/fxmark/`
+do
+    echo "On $i"
+    $FXMARK_PARSER_PATH/pdata.py --log="$FXMARK_LOG_PATH/fxmark/$i" \
+    --type='fxmark' --out="$DATA_PATH/fxmark"
+done
+echo ""

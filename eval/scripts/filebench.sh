@@ -20,3 +20,12 @@ $FXMARK_BIN_PATH/run-fxmark.py --media='pm-array' --fs='odinfs' \
     --ncore='*' --iotype='bufferedio' --dthread='12' --dsocket='2' \
     --rcore='False' --delegate='True' --confirm='True' \
     --directory_name="filebench" --log_name="odinfs.log" --duration=30
+
+echo "Parsing filebench results"
+for i in `ls $FXMARK_LOG_PATH/filebench/`
+do
+    echo "On $i"
+    $FXMARK_PARSER_PATH/pdata.py --log="$FXMARK_LOG_PATH/filebench/$i" \
+    --type='filebench' --out="$DATA_PATH/filebench"
+done
+echo ""
