@@ -446,6 +446,12 @@ class Runner(object):
         p.wait()
         return p
 
+    def test_cmd(self, cmd):
+        rc = subprocess.call(['which', cmd])
+        if rc != 0:
+            print (cmd + ' missing!')
+            exit(1)
+
     def keep_sudo(self):
         self.exec_cmd("sudo -v", self.dev_null)
 
@@ -843,6 +849,7 @@ class Runner(object):
                             "--delegate", str(int(self.delegate == True))])
 
         elif bin is self.filebench_path:
+            self.test_cmd('filebench')
             cmd = ' '.join([self.fxmark_run_env(fs),
                             bin,
                             "--type", type,
@@ -857,6 +864,7 @@ class Runner(object):
                             "--delegate", str(int(self.delegate == True))])
 
         elif bin is self.fio_path:
+            self.test_cmd('fio')
             cmd = ' '.join([self.fxmark_run_env(fs),
                             bin,
                             "--type", type,
