@@ -27,7 +27,7 @@ root
     |---- ampl           (I/O amplification) 
     |---- benchmark      (Filebench and Fxmark) 
     |---- numa           (NUMA impact)
-    |---- scripts        (the main evaluation scripts) 
+    |---- scripts        (main evaluation scripts) 
     |---- fig            (figures) 
     |---- data           (raw data)
 |---- tools            
@@ -68,6 +68,7 @@ Next, please use your favorite way to compile and install the kernel. The below 
 For Ubuntu:
 ```
 $ make -j8 deb-pkg          (generate the kernel installment package)
+$ cd ..
 $ sudo dpkg -i *.deb        (install the package) 
 ```
 
@@ -106,7 +107,7 @@ $ ./compile.sh
 **4.2 Filebench**
 
 ```
-$ cd eval/benchmark/fxmark
+$ cd eval/benchmark/filebench
 $ ./compile.sh
 ```
 
@@ -182,7 +183,7 @@ The table below shows the execution time of each script on a two-socket, 56 core
 * Configure each PM device to ```fsdax``` mode. For example, on a two socket machine:
 ```
 sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
-sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace1.0 --mode=fsdax
 ```
 
 On a four socket machine:
