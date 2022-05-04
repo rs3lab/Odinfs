@@ -1,0 +1,6 @@
+local.fio
+remote.fio
+cpupol.py
+read-log
+write-log
+__pycache__

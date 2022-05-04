@@ -97,8 +97,7 @@ group_reporting=1
 directory=/mnt/pmem_emul/
 runtime=30s
 time_based
-numjobs=28
-cpus_allowed=28-55
+include remote.fio
 [seq-write-2m]
 rw=read
 size=1g

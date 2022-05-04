@@ -2,6 +2,9 @@
 script_dir=../scripts/mount-scripts/
 
 sudo -v 
+
+./gen.sh
+
 mkdir -p /mnt/pmem_emul/
 
 fs=(pmfs)

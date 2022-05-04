@@ -97,10 +97,10 @@ group_reporting=1
 directory=/mnt/pmem_emul/
 runtime=30s
 time_based
-numjobs=8
-cpus_allowed=0-27
+include local.fio
 [seq-write-2m]
 rw=write
 size=1g
 bs=2m
 stonewall
+
