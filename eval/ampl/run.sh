@@ -1,6 +1,19 @@
 #!/bin/bash
 
 sudo -v
+
+if [ ! -f "../benchmark/fxmark/bin/cpupol.py" ]
+then
+    echo "Please compile fxmark!"
+    exit 1
+fi
+
+if ! command -v pmwatch &> /dev/null 
+then
+    echo "Please install pmwatch"
+    exit 1
+fi
+
 ./gen.sh
 
 script_dir=../scripts/mount-scripts/

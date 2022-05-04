@@ -3,6 +3,12 @@ script_dir=../scripts/mount-scripts/
 
 sudo -v 
 
+if [ ! -f "../benchmark/fxmark/bin/cpupol.py" ]
+then
+    echo "Please compile fxmark!"
+    exit 1
+fi
+
 ./gen.sh
 
 mkdir -p /mnt/pmem_emul/
