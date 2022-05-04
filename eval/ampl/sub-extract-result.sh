@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source common.sh
+
 if [ $# -ne "2" ];
 then
     echo "usage: $0 [dir] [output_dir]"
@@ -8,7 +10,6 @@ fi
 
 dir=$1
 output_dir=$2
-cores=(1 2 4 8 16 28 56)
 
 
 echo "On $dir"

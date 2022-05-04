@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo -v
+./gen.sh
 
 script_dir=../scripts/mount-scripts/
 sudo mkdir -p /mnt/pmem_emul

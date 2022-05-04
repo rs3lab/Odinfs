@@ -1,13 +1,12 @@
 #!/bin/bash
 
+source common.sh
+
 if [ $# -ne "2" ]; 
 then
     echo "usage: $0 [fs] [block_size]"
     exit 1
 fi
-
-
-cores=(1 2 4 8 16 28 56)
 
 
 fs=$1
