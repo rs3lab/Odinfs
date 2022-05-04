@@ -1,10 +1,21 @@
 autom4te.cache/
 .deps/
 Makefile
+INSTALL
+Makefile.in
+aclocal.m4
+compile
 config.h
 config.log
+config.guess
+config.h.in
+config.sub
+configure
 config.status
 stamp-h1
+install-sh
+libtool
+ltmain.sh
 
 eventgen.o
 fb_avl.o
@@ -28,14 +39,27 @@ threadflow.o
 utils.o
 vars.o
 aslr.o
+fbtime.o
+
 cvars/*.o
 cvars/*.lo
 cvars/*.la
-
 cvars/.libs
+cvars/mtwist/.dirstamp
+cvars/mtwist/.libs
+cvars/mtwist/*.o
+cvars/mtwist/*.lo
+
+m4/
+missing
+workloads/Makefile.in
+ylwrap
 
 parser_gram.c
 parser_gram.h
 parser_lex.c
+
+depcomp
+
 
 tags

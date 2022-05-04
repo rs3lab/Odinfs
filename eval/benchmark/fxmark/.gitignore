@@ -10,6 +10,7 @@ src/cscope.*
 bin/cpupol.py
 bin/*.o
 bin/fxmark
+bin/create-file
 bin/root
 bin/.tmp
 logs/
