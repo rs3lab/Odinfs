@@ -22,6 +22,8 @@ make clean && make -j
 sudo make install
 cd -
 
+stat=0
+
 echo ""
 echo "------------------------------------------------------------------"
 echo "Checking"
@@ -33,7 +35,7 @@ do
         echo $i installed successfully 
     else 
         echo $i *not* installed
-        exit 1
+        stat=1
     fi
 done
 
@@ -48,12 +50,19 @@ then
 
 else
     echo "Parradm *not* installed"
-    exit 1
+    stat=1
 fi
 
-echo "All succeed!"
-echo "------------------------------------------------------------------"
-exit 0
+if [ $stat -eq 0 ]
+then
+    echo "All succeed!"
+    echo "------------------------------------------------------------------"
+    exit 0
+else
+    echo "Errors occur, please check the above message"
+    echo "------------------------------------------------------------------"
+    exit $stat
+fi
 
 
 
