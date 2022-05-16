@@ -43,16 +43,16 @@ set title '(b) write'
 
 plot \
 "../data/fio/pmem-local:ext4:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\ext' with lp ls ext, \
+ using 1:($2/1024/1024) title '\ext' with lp ls ext, \
 "../data/fio/pmem-local:pmfs:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024)  title '\pmfs' with lp ls pmfs, \
+ using 1:($2/1024/1024)  title '\pmfs' with lp ls pmfs, \
 "../data/fio/pmem-local:nova:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\nova' with lp ls nova, \
+ using 1:($2/1024/1024) title '\nova' with lp ls nova, \
 "../data/fio/pmem-local:winefs:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\winefs' with lp ls winefs, \
+ using 1:($2/1024/1024) title '\winefs' with lp ls winefs, \
 "../data/fio/dm-stripe:ext4:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\extr' with lp ls extr, \
+ using 1:($2/1024/1024) title '\extr' with lp ls extr, \
 "../data/fio/pm-array:odinfs:seq-write-2M:bufferedio.dat" \
- using 0:($2/1024/1024) title '\sys' with lp ls odinfs
+ using 1:($2/1024/1024) title '\sys' with lp ls odinfs
 
 
